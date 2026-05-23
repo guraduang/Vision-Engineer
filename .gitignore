@@ -1,0 +1,9 @@
+data/
+论文/
+.venv/
+.venv_ppt/
+build/
+install/
+log/
+output/
+.claude/

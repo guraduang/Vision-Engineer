@@ -1,0 +1,24 @@
+realsense_subscriber_node:
+  ros__parameters:
+    image_topic: "/camera/camera/color/image_raw"
+    pose_topic: "/target_pose"
+    debug_image_topic: "/realsense_subscriber/debug_image"
+    enable_debug_visualization: true
+
+    marker_size_meter: 0.06
+
+    red_minus_blue_threshold: 60
+    binary_threshold: 120
+
+    canny_low_threshold: 50
+    canny_high_threshold: 150
+
+    min_contour_area: 180.0
+
+    min_chain_code_transitions: 4
+    max_chain_code_transitions: 10
+
+    max_reprojection_error: 5.0
+
+    camera_matrix: [615.0, 0.0, 320.0, 0.0, 615.0, 240.0, 0.0, 0.0, 1.0]
+    distortion_coefficients: [0.0, 0.0, 0.0, 0.0, 0.0]

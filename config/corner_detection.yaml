@@ -1,0 +1,100 @@
+# L 型灯条角点检测算法参数配置
+# 配置版本：v1.0
+# 更新日期：2026-04-16
+
+# 默认配置（平衡精度和鲁棒性）
+default:
+  # 轮廓角度计算参数
+  angle_computation:
+    filter_len_ratio: 0.15  # 高斯滤波窗口长度比例（相对于轮廓点数）
+    gaussian_sigma: 3.0     # 高斯滤波标准差
+
+  # 梯度计算参数
+  gradient:
+    threshold: 3.0          # 单调区间检测阈值（度/点）
+    min_segment_length: 10  # 最小单调区间长度（点数）
+
+  # 角点聚类参数
+  clustering:
+    min_interval_ratio: 0.05  # 最小角点间隔比例（相对于图像尺寸）
+
+  # 内拐点检测参数
+  inner_corner:
+    distance_ratio_min: 0.3   # 内拐点到外角点的最小距离比例
+    distance_ratio_max: 0.7   # 内拐点到外角点的最大距离比例
+    curvature_weight: 1.0     # 曲率权重（用于候选点排序）
+
+  # 算法选择参数
+  algorithm:
+    use_new_algorithm: true   # 是否启用新算法
+    fallback_enabled: true    # 是否启用回退策略
+    min_segments_required: 2  # 新算法所需的最小单调区间数
+
+# 高精度配置（提高新算法使用率，降低误差）
+high_precision:
+  angle_computation:
+    filter_len_ratio: 0.20
+    gaussian_sigma: 5.0
+
+  gradient:
+    threshold: 2.0            # 降低阈值，检测更多单调区间
+    min_segment_length: 8
+
+  clustering:
+    min_interval_ratio: 0.08  # 增大间隔，减少冗余角点
+
+  inner_corner:
+    distance_ratio_min: 0.35
+    distance_ratio_max: 0.65
+    curvature_weight: 1.5
+
+  algorithm:
+    use_new_algorithm: true
+    fallback_enabled: true
+    min_segments_required: 2
+
+# 快速配置（优先鲁棒性，降低计算量）
+fast:
+  angle_computation:
+    filter_len_ratio: 0.10
+    gaussian_sigma: 2.0
+
+  gradient:
+    threshold: 4.0            # 提高阈值，减少计算量
+    min_segment_length: 12
+
+  clustering:
+    min_interval_ratio: 0.03
+
+  inner_corner:
+    distance_ratio_min: 0.25
+    distance_ratio_max: 0.75
+    curvature_weight: 0.8
+
+  algorithm:
+    use_new_algorithm: true
+    fallback_enabled: true
+    min_segments_required: 2
+
+# 实验配置（用于参数调优）
+experimental:
+  angle_computation:
+    filter_len_ratio: 0.15
+    gaussian_sigma: 4.0
+
+  gradient:
+    threshold: 2.5            # 中等阈值
+    min_segment_length: 10
+
+  clustering:
+    min_interval_ratio: 0.06
+
+  inner_corner:
+    distance_ratio_min: 0.3
+    distance_ratio_max: 0.7
+    curvature_weight: 1.2
+
+  algorithm:
+    use_new_algorithm: true
+    fallback_enabled: true
+    min_segments_required: 1  # 降低要求，提高新算法使用率
